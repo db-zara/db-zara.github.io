@@ -11,19 +11,24 @@ function showMain() {
 }
 
 function showRandomText(folder) {
-    const files = folder === '2' 
-        ? ['file1.txt', 'file2.txt', 'file3.txt'] 
-        : ['file1.txt', 'file2.txt', 'file3.txt'];
-
-    const randomFile = files[Math.floor(Math.random() * files.length)];
-
-    fetch(`${folder}/${randomFile}`)
-        .then(response => response.text())
+    // 폴더에 맞는 files.json 파일을 가져옵니다.
+    fetch(`${folder}/files.json`)
+        .then(response => response.json())  // JSON 형식으로 변환
         .then(data => {
-            const content = document.getElementById('content');
-            content.innerHTML = `<pre>${data}</pre>`;
+            const randomFile = data.files[Math.floor(Math.random() * data.files.length)];
+
+            // 랜덤으로 선택된 파일을 가져옵니다.
+            fetch(`${folder}/${randomFile}`)
+                .then(response => response.text())
+                .then(data => {
+                    const content = document.getElementById('content');
+                    content.innerHTML = `<pre>${data}</pre>`;
+                })
+                .catch(error => {
+                    console.error('텍스트 파일을 불러오는 데 문제가 발생했습니다.', error);
+                });
         })
         .catch(error => {
-            console.error('파일을 불러오는데 문제가 발생했습니다.', error);
+            console.error('파일 목록을 불러오는 데 문제가 발생했습니다.', error);
         });
 }
