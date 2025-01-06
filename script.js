@@ -5,9 +5,14 @@ document.getElementById('button3').addEventListener('click', () => showRandomTex
 // 메인 화면 표시 함수
 function showMain() {
     const content = document.getElementById('content');
-    content.innerHTML = `
-        <p>소개소개</p>
-    `;
+    fetch('intro.txt')
+        .then(response => response.text())
+        .then(data => {
+            content.innerHTML = `<p>${data}</p>`;
+        })
+        .catch(error => {
+            console.error('파일을 불러오는데 문제가 발생했습니다.', error);
+        });
 }
 
 function showRandomText(folder) {
