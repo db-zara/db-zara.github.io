@@ -1,6 +1,3 @@
-// script.js
-
-// 버튼 클릭 이벤트 설정
 document.getElementById('button1').addEventListener('click', showMain);
 document.getElementById('button2').addEventListener('click', () => showRandomText('2'));
 document.getElementById('button3').addEventListener('click', () => showRandomText('3'));
@@ -13,17 +10,13 @@ function showMain() {
     `;
 }
 
-// 랜덤 텍스트 파일 표시 함수
 function showRandomText(folder) {
-    // 폴더 내 텍스트 파일 이름 (미리 지정)
     const files = folder === '2' 
         ? ['file1.txt', 'file2.txt', 'file3.txt'] 
         : ['file1.txt', 'file2.txt', 'file3.txt'];
 
-    // 랜덤으로 파일 선택
     const randomFile = files[Math.floor(Math.random() * files.length)];
 
-    // 텍스트 파일 읽어서 표시 (fetch 사용)
     fetch(`${folder}/${randomFile}`)
         .then(response => response.text())
         .then(data => {
