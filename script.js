@@ -9,8 +9,7 @@ document.getElementById('button3').addEventListener('click', () => showRandomTex
 function showMain() {
     const content = document.getElementById('content');
     content.innerHTML = `
-        <h1>안녕하세요!</h1>
-        <p>여기는 내 웹사이트의 메인 화면입니다.</p>
+        <p>소개소개</p>
     `;
 }
 
