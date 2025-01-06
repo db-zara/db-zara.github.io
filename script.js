@@ -1,44 +1,37 @@
-// 메인 페이지를 보여주는 함수
-function showMainPage() {
+// script.js
+
+// 버튼 클릭 이벤트 설정
+document.getElementById('button1').addEventListener('click', showMain);
+document.getElementById('button2').addEventListener('click', () => showRandomText('2'));
+document.getElementById('button3').addEventListener('click', () => showRandomText('3'));
+
+// 메인 화면 표시 함수
+function showMain() {
     const content = document.getElementById('content');
-    content.innerHTML = `<h1>내 소개</h1><p>여기에 내 소개 내용을 입력해 주세요.</p>`;
-  }
-  
-  // 랜덤 텍스트 파일 표시 함수
-  function showRandomText(folder) {
-    const jsonUrl = `${folder}.json`; 
-    
-    fetch(jsonUrl)
-      .then(response => response.json())
-      .then(data => {
-        const randomFile = data.files[Math.floor(Math.random() * data.files.length)];
-  
-        // 파일 내용 가져오기
-        fetch(`${folder}/${randomFile}`)  // 폴더에서 랜덤 파일 읽기
-          .then(response => response.text())
-          .then(fileContent => {
-            const content = document.getElementById('content');  // 'content'라는 ID를 가진 요소에 내용 넣기
-            content.innerHTML = `<pre>${fileContent}</pre>`;  // 파일 내용 표시
-          })
-          .catch(error => {
-            console.error('파일을 불러오는 데 문제가 발생했습니다.', error);
-          });
-      })
-      .catch(error => {
-        console.error('JSON 파일을 불러오는 데 문제가 발생했습니다.', error);
-      });
-  }
-  
-  // 버튼 클릭 이벤트 처리
-  document.getElementById('button1').addEventListener('click', function() {
-    showMainPage();  // 메인 페이지 표시
-  });
-  
-  document.getElementById('button2').addEventListener('click', function() {
-    showRandomText('2');  // '2' 폴더에서 랜덤 텍스트 파일 가져오기
-  });
-  
-  document.getElementById('button3').addEventListener('click', function() {
-    showRandomText('3');  // '3' 폴더에서 랜덤 텍스트 파일 가져오기
-  });
-  
+    content.innerHTML = `
+        <h1>안녕하세요!</h1>
+        <p>여기는 내 웹사이트의 메인 화면입니다.</p>
+    `;
+}
+
+// 랜덤 텍스트 파일 표시 함수
+function showRandomText(folder) {
+    // 폴더 내 텍스트 파일 이름 (미리 지정)
+    const files = folder === '2' 
+        ? ['file1.txt', 'file2.txt', 'file3.txt'] 
+        : ['file1.txt', 'file2.txt', 'file3.txt'];
+
+    // 랜덤으로 파일 선택
+    const randomFile = files[Math.floor(Math.random() * files.length)];
+
+    // 텍스트 파일 읽어서 표시 (fetch 사용)
+    fetch(`${folder}/${randomFile}`)
+        .then(response => response.text())
+        .then(data => {
+            const content = document.getElementById('content');
+            content.innerHTML = `<pre>${data}</pre>`;
+        })
+        .catch(error => {
+            console.error('파일을 불러오는데 문제가 발생했습니다.', error);
+        });
+}
