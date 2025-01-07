@@ -51,6 +51,8 @@ main {
 }
 
 pre {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
     white-space: pre-wrap; 
     word-wrap: break-word;  
     line-height: 1.6;     
