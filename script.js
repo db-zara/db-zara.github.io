@@ -43,7 +43,6 @@ function showGrassPage() {
 function populateYear() {
     const yearDropdown = document.getElementById('year-dropdown');
 
-    // 년도 설정 
     for (let year = 2025; year <= 2025; year++) {
         const option = document.createElement('option');
         option.value = year;
@@ -59,28 +58,24 @@ function populateYear() {
 
 function showGrass(year) {
     const grassContainer = document.getElementById('grass-container');
-    grassContainer.innerHTML = '';  // 기존 잔디를 비운다
+    grassContainer.innerHTML = ''; 
 
-    const filePath = `writing-data/${year}.json`;  // 해당 년도 데이터 경로
-    console.log(`파일 경로: ${filePath}`); // 파일 경로 로그
+    const filePath = `writing-data/${year}.json`;  
+    console.log(`파일 경로: ${filePath}`); 
 
     fetch(filePath)
         .then(response => response.json())
         .then(data => {
-            console.log('데이터:', data); // 데이터 확인용 로그
+            console.log('데이터:', data); 
             const yearData = data[year];
 
-            // 잔디를 일별로 나열 (각 월의 일별 데이터를 모두 나열)
-            let dayIndex = 0; // 0부터 시작해서 데이터 배열을 순차적으로 채운다.
+            let dayIndex = 0; 
             
-            // 1월부터 12월까지 순차적으로 데이터를 배치한다.
             for (let month = 1; month <= 12; month++) {
-                const monthData = yearData[month];  // 해당 월의 데이터
+                const monthData = yearData[month];  
 
-                // 해당 월의 실제 일 수를 구함 (예: 2월은 28일, 4월은 30일 등)
                 const daysInMonth = new Date(year, month, 0).getDate();
 
-                // 각 월의 일 수에 맞게 반복 (1일부터 해당 월의 마지막 일까지)
                 for (let day = 1; day <= daysInMonth; day++) {
                     const grassDiv = document.createElement('div');
                     grassDiv.classList.add('grass');
@@ -91,26 +86,37 @@ function showGrass(year) {
                     console.log(`${month}월 ${day}일 글자수: ${newText}`); // 일별 글자 수 확인용 로그
                     const percentage = Math.min(Math.max(newText / 10000, 0), 1);
 
-                    // 10000자일 때 rgb(34, 113, 49)로 고정하고, 그 이하일 때 연한 색
                     const red = Math.round(34 + (255 - 34) * (1 - percentage));
                     const green = Math.round(113 + (255 - 113) * (1 - percentage));
                     const blue = Math.round(49 + (255 - 49) * (1 - percentage));
 
                     grassDiv.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
 
-                    // tooltip 텍스트 설정
                     const formattedDate = `${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                     const formattedText = `${formattedDate} ${newText.toLocaleString()}자`;
-                    grassDiv.title = formattedText;  // title 속성에 설정
 
-                    // 잔디의 위치를 지정
-                    const row = dayIndex % 7;  // 행
-                    const col = Math.floor(dayIndex / 7);  // 열
+                    const tooltip = document.createElement('div');
+                    tooltip.classList.add('tooltip');
+                    tooltip.textContent = formattedText;
+
+                    grassDiv.appendChild(tooltip);
+
+                    const row = dayIndex % 7; 
+                    const col = Math.floor(dayIndex / 7); 
                     grassDiv.style.gridRowStart = row + 1;
                     grassDiv.style.gridColumnStart = col + 1;
 
+                    grassDiv.addEventListener('mouseenter', () => {
+                        tooltip.style.visibility = 'visible';
+                        tooltip.style.opacity = 1;
+                    });
+                    grassDiv.addEventListener('mouseleave', () => {
+                        tooltip.style.visibility = 'hidden';
+                        tooltip.style.opacity = 0;
+                    });
+
                     grassContainer.appendChild(grassDiv);
-                    dayIndex++;  // 다음 위치로 이동
+                    dayIndex++;  
                 }
             }
         })
