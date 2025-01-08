@@ -72,10 +72,11 @@ html, body {
 }
 
 #year-dropdown {
-    padding: 5px;
-    font-size: 16px;
+    padding: 3px;
+    font-size: 14px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    margin-left: 20px;
 }
 
 #grass-container {
@@ -110,8 +111,8 @@ html, body {
 }
 
 .grass {
-    width: 25px; 
-    height: 25px; 
+    width: 20px; 
+    height: 20px; 
     background-color: rgb(220, 244, 182); 
     border: 1px solid #c0c0c0;
     cursor: pointer;
