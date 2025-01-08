@@ -31,9 +31,18 @@ function showGrassPage() {
     const content = document.getElementById('content');
     content.innerHTML = `
         <div id="calendar"><select id="year-dropdown"></select></div><div id="grass-container"></div>
+    <div id="memo-container">
+    <textarea id="memo-input" placeholder="메모를 작성하세요..."></textarea>
+    <div id="memo-buttons">
+        <button id="save-memo-btn">저장</button>
+    </div>
+</div>
+<div id="memo-list"></div>
+
     `;
     populateYear();  
     showGrass('2025'); 
+    addMemoFunctionality();
 }
 function populateYear() {
     const yearDropdown = document.getElementById('year-dropdown');
@@ -115,4 +124,77 @@ function showGrass(year) {
                 console.error(`${year}년 ${month}월의 데이터를 불러오는 데 문제가 발생했습니다:`, error);
             });
     }
+}
+function addMemoFunctionality() {
+    document.getElementById('save-memo-btn').addEventListener('click', saveMemo);
+    document.getElementById('memo-input').addEventListener('input', updateMemoList);
+
+    function saveMemo() {
+        const memoInput = document.getElementById('memo-input');
+        const memoText = memoInput.value.trim();
+
+        if (memoText === '') return; 
+
+        let memos = getMemosFromLocalStorage(); 
+        memos.push({ text: memoText, checked: false }); 
+
+        saveMemosToLocalStorage(memos);
+        memoInput.value = ''; 
+        updateMemoList(); 
+    }
+
+    function getMemosFromLocalStorage() {
+        const memos = localStorage.getItem('memos');
+        return memos ? JSON.parse(memos) : [];
+    }
+
+    function saveMemosToLocalStorage(memos) {
+        localStorage.setItem('memos', JSON.stringify(memos));
+    }
+
+    function updateMemoList() {
+        const memoList = document.getElementById('memo-list');
+        memoList.innerHTML = ''; 
+
+        const memos = getMemosFromLocalStorage(); 
+        memos.forEach((memo, index) => {
+            const memoItem = document.createElement('div');
+            memoItem.classList.add('memo-item');
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.classList.add('checkbox');
+            checkbox.checked = memo.checked;
+            checkbox.addEventListener('change', () => toggleMemoCheck(index));
+
+            const memoText = document.createElement('span');
+            memoText.textContent = memo.text;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '삭제';
+            deleteBtn.addEventListener('click', () => deleteMemo(index));
+
+            memoItem.appendChild(checkbox);
+            memoItem.appendChild(memoText);
+            memoItem.appendChild(deleteBtn);
+
+            memoList.appendChild(memoItem);
+        });
+    }
+
+    function toggleMemoCheck(index) {
+        let memos = getMemosFromLocalStorage();
+        memos[index].checked = !memos[index].checked;
+        saveMemosToLocalStorage(memos);
+        updateMemoList(); 
+    }
+
+    function deleteMemo(index) {
+        let memos = getMemosFromLocalStorage();
+        memos.splice(index, 1); 
+        saveMemosToLocalStorage(memos);
+        updateMemoList(); 
+    }
+
+    document.addEventListener('DOMContentLoaded', updateMemoList);
 }

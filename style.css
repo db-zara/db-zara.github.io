@@ -129,3 +129,36 @@ html, body {
 .grass:hover {
     opacity: 0.8;
 }
+#memo-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;  /* 메모 입력창과 버튼을 가로로 배치 */
+    align-items: center; 
+    gap: 10px; /* 입력창과 버튼 사이에 간격 추가 */
+}
+
+#memo-input {
+    width: 300px;
+    height: 40px;
+}
+
+#memo-buttons {
+    display: flex; 
+    gap: 10px;
+    align-items: center;
+}
+
+#save-memo-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#memo-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column; 
+}
