@@ -2,6 +2,7 @@ document.getElementById('button1').addEventListener('click', showMain);
 document.getElementById('button2').addEventListener('click', () => showRandomText('2'));
 document.getElementById('button3').addEventListener('click', () => showRandomText('3'));
 document.getElementById('button4').addEventListener('click', showGrassPage);
+document.getElementById('button5').addEventListener('click', () => loadBooksPage());
 
 function showMain() {
     window.location.reload();  
@@ -197,4 +198,15 @@ function addMemoFunctionality() {
     }
 
     document.addEventListener('DOMContentLoaded', updateMemoList);
+}
+
+function loadBooksPage() {
+    fetch('books.html') 
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('content').innerHTML = data; 
+        })
+        .catch(error => {
+            console.error('책 목록 페이지를 불러오는 데 문제가 발생했습니다:', error);
+        });
 }

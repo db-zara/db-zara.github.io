@@ -162,3 +162,9 @@ html, body {
     display: flex;
     flex-direction: column; 
 }
+
+* {
+    -webkit-user-drag: none; 
+    user-drag: none;
+    user-select: none;  
+}
