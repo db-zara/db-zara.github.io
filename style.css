@@ -67,6 +67,8 @@ html, body {
     gap: 10px;
     margin: 0;
     align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
 #year-dropdown {
@@ -85,8 +87,7 @@ html, body {
     margin-top: 10px;
     width: 600px; 
     max-width: 600px; 
-    overflow-x: auto; 
-    overflow-y: hidden; 
+    overflow: visible; 
     justify-items: center;
     padding-bottom: 20px;
     box-sizing: border-box;
