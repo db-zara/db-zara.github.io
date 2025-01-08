@@ -27,19 +27,14 @@ function showRandomText(folder) {
             console.error('파일 목록을 불러오는 데 문제가 발생했습니다:', error);
         });
 }
-
 function showGrassPage() {
     const content = document.getElementById('content');
     content.innerHTML = `
-        <div id="calendar">
-            <select id="year-dropdown"></select>
-        </div>
-        <div id="grass-container"></div>
+        <div id="calendar"><select id="year-dropdown"></select></div><div id="grass-container"></div>
     `;
     populateYear();  
     showGrass('2025'); 
 }
-
 function populateYear() {
     const yearDropdown = document.getElementById('year-dropdown');
 
@@ -50,32 +45,24 @@ function populateYear() {
         yearDropdown.appendChild(option);
     }
     yearDropdown.value = '2025'; 
-
     yearDropdown.addEventListener('change', () => {
         showGrass(yearDropdown.value); 
     });
 }
-
 function showGrass(year) {
     const grassContainer = document.getElementById('grass-container');
     grassContainer.innerHTML = ''; 
-
     const filePath = `writing-data/${year}.json`;  
     console.log(`파일 경로: ${filePath}`); 
-
     fetch(filePath)
         .then(response => response.json())
         .then(data => {
             console.log('데이터:', data); 
             const yearData = data[year];
-
             let dayIndex = 0; 
-            
             for (let month = 1; month <= 12; month++) {
                 const monthData = yearData[month];  
-
                 const daysInMonth = new Date(year, month, 0).getDate();
-
                 for (let day = 1; day <= daysInMonth; day++) {
                     const grassDiv = document.createElement('div');
                     grassDiv.classList.add('grass');
@@ -114,7 +101,6 @@ function showGrass(year) {
                         tooltip.style.visibility = 'hidden';
                         tooltip.style.opacity = 0;
                     });
-
                     grassContainer.appendChild(grassDiv);
                     dayIndex++;  
                 }
