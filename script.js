@@ -52,17 +52,21 @@ function populateYear() {
 function showGrass(year) {
     const grassContainer = document.getElementById('grass-container');
     grassContainer.innerHTML = ''; 
-    const filePath = `writing-data/${year}.json`;  
-    console.log(`파일 경로: ${filePath}`); 
-    fetch(filePath)
-        .then(response => response.json())
-        .then(data => {
-            console.log('데이터:', data); 
-            const yearData = data[year];
-            let dayIndex = 0; 
-            for (let month = 1; month <= 12; month++) {
-                const monthData = yearData[month];  
-                const daysInMonth = new Date(year, month, 0).getDate();
+    let dayIndex = 0; 
+
+    // 각 월별 데이터를 처리하는 순서를 바꿔줍니다.
+    // 순서대로 월을 처리할 수 있도록 수정
+    for (let month = 1; month <= 12; month++) {
+        const filePath = `writing-data/${year}-${month}.json`;  
+        console.log(`파일 경로: ${filePath}`); 
+        
+        fetch(filePath)
+            .then(response => response.json())
+            .then(monthData => {
+                console.log(`${year}년 ${month}월 데이터:`, monthData); 
+                
+                // 해당 월의 일별 데이터를 처리
+                const daysInMonth = new Date(year, month, 0).getDate(); // 해당 월의 일 수
                 for (let day = 1; day <= daysInMonth; day++) {
                     const grassDiv = document.createElement('div');
                     grassDiv.classList.add('grass');
@@ -88,6 +92,8 @@ function showGrass(year) {
 
                     grassDiv.appendChild(tooltip);
 
+                    // **이 부분 수정**
+                    // 월별로 데이터를 세로로 나열할 수 있도록 그리드 스타일 적용 (행과 열을 구분)
                     const row = dayIndex % 7; 
                     const col = Math.floor(dayIndex / 7); 
                     grassDiv.style.gridRowStart = row + 1;
@@ -104,9 +110,9 @@ function showGrass(year) {
                     grassContainer.appendChild(grassDiv);
                     dayIndex++;  
                 }
-            }
-        })
-        .catch(error => {
-            console.error('글자수 데이터를 불러오는 데 문제가 발생했습니다:', error);
-        });
+            })
+            .catch(error => {
+                console.error(`${year}년 ${month}월의 데이터를 불러오는 데 문제가 발생했습니다:`, error);
+            });
+    }
 }
