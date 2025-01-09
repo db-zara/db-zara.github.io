@@ -33,8 +33,8 @@ function showGrassPage() {
     content.innerHTML = `
         <div id="calendar"><select id="year-dropdown"></select></div><div id="grass-container"></div>
     <div id="memo-container">
-    <textarea id="memo-input" placeholder="메모를 작성하세요..."></textarea>
-    <div id="memo-buttons"><button id="save-memo-btn"><img src="images/elan_20226.png" alt="저장" />
+    <textarea id="memo-input" placeholder="입력하세요..."></textarea>
+    <div id="memo-buttons"><button id="save-memo-btn"><img src="images/elan_20224.png" alt="저장" />
     </button>
     </div>
 </div>
