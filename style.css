@@ -145,7 +145,6 @@ html, body {
     display: flex;
     flex-direction: row; 
     align-items: center; 
-    justify-content: center;
     gap: 10px;
 }
 
@@ -185,7 +184,6 @@ html, body {
     font-family: 'Arial', sans-serif;
     font-size: 14px;
     align-items: flex-start;
-    margin-left: 55px;
     word-wrap: break-word;
     white-space: normal;
 }
