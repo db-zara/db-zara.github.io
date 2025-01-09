@@ -196,7 +196,7 @@ function addMemoFunctionality() {
 }
 
 function loadBooksPage() {
-    fetch('booKs.html') 
+    fetch('books.html') 
         .then(response => response.text())
         .then(data => {
             document.getElementById('content').innerHTML = data; 
