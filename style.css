@@ -18,20 +18,29 @@ body {
 header {
     display: flex;
     justify-content: center;
-    gap: 5px;
+    gap: 15px;
     padding-top: 20px;
     margin-bottom: 20px;
 }
 
 button {
+    width: 45px;
+    height: 45px;
+    padding: 0;
     border: none;
+    margin: 0;
     background: none;
     cursor: pointer;
 }
 
 button img {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
+}
+
+button:active {
+    filter: brightness(85%);
+    transform: scale(0.98);
 }
 
 main {
@@ -133,9 +142,9 @@ html, body {
 #memo-container {
     margin-top: 50px;
     display: flex;
-    flex-direction: row;  /* 메모 입력창과 버튼을 가로로 배치 */
+    flex-direction: row; 
     align-items: center; 
-    gap: 10px; /* 입력창과 버튼 사이에 간격 추가 */
+    gap: 10px;
 }
 
 #memo-input {
@@ -152,10 +161,17 @@ html, body {
 #save-memo-btn {
     width: 40px;
     height: 40px;
-    background-color: #4CAF50;
-    color: white;
+    padding: 0;
+    margin: 0;
     border: none;
+    background: none;
     cursor: pointer;
+}
+
+#save-memo-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 #memo-list {

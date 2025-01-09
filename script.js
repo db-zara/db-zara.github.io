@@ -34,8 +34,8 @@ function showGrassPage() {
         <div id="calendar"><select id="year-dropdown"></select></div><div id="grass-container"></div>
     <div id="memo-container">
     <textarea id="memo-input" placeholder="메모를 작성하세요..."></textarea>
-    <div id="memo-buttons">
-        <button id="save-memo-btn">저장</button>
+    <div id="memo-buttons"><button id="save-memo-btn"><img src="images/elan_20226.png" alt="저장" />
+    </button>
     </div>
 </div>
 <div id="memo-list"></div>
@@ -64,8 +64,6 @@ function showGrass(year) {
     grassContainer.innerHTML = ''; 
     let dayIndex = 0; 
 
-    // 각 월별 데이터를 처리하는 순서를 바꿔줍니다.
-    // 순서대로 월을 처리할 수 있도록 수정
     for (let month = 1; month <= 12; month++) {
         const filePath = `writing-data/${year}-${month}.json`;  
         console.log(`파일 경로: ${filePath}`); 
@@ -75,16 +73,15 @@ function showGrass(year) {
             .then(monthData => {
                 console.log(`${year}년 ${month}월 데이터:`, monthData); 
                 
-                // 해당 월의 일별 데이터를 처리
-                const daysInMonth = new Date(year, month, 0).getDate(); // 해당 월의 일 수
+                const daysInMonth = new Date(year, month, 0).getDate();
                 for (let day = 1; day <= daysInMonth; day++) {
                     const grassDiv = document.createElement('div');
                     grassDiv.classList.add('grass');
                     grassDiv.dataset.month = month;
                     grassDiv.dataset.day = day;
 
-                    const newText = monthData[day] || 0;  // 해당 일의 글자 수 (없으면 0)
-                    console.log(`${month}월 ${day}일 글자수: ${newText}`); // 일별 글자 수 확인용 로그
+                    const newText = monthData[day] || 0;  
+                    console.log(`${month}월 ${day}일 글자수: ${newText}`); 
                     const percentage = Math.min(Math.max(newText / 10000, 0), 1);
 
                     const red = Math.round(34 + (255 - 34) * (1 - percentage));
@@ -102,8 +99,6 @@ function showGrass(year) {
 
                     grassDiv.appendChild(tooltip);
 
-                    // **이 부분 수정**
-                    // 월별로 데이터를 세로로 나열할 수 있도록 그리드 스타일 적용 (행과 열을 구분)
                     const row = dayIndex % 7; 
                     const col = Math.floor(dayIndex / 7); 
                     grassDiv.style.gridRowStart = row + 1;
