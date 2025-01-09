@@ -4,6 +4,7 @@ html, body {
     padding: 0;
     background-color: white;
     font-family: Arial, sans-serif;
+    font-size: 14px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

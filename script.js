@@ -31,16 +31,20 @@ function showRandomText(folder) {
 function showGrassPage() {
     const content = document.getElementById('content');
     content.innerHTML = `
-        <div id="calendar"><select id="year-dropdown"></select></div><div id="grass-container"></div>
-    <div id="memo-container">
-    <textarea id="memo-input" placeholder="입력하세요..."></textarea>
-    <div id="memo-buttons"><button id="save-memo-btn"><img src="images/elan_20224.png" alt="저장" />
-    </button>
-    </div>
-</div>
-<div id="memo-list"></div>
-
+        <h1>잔디 페이지</h1> 
+        <div id="calendar">
+            <select id="year-dropdown"></select>
+        </div>
+        <div id="grass-container"></div>
+        <div id="memo-container">
+            <textarea id="memo-input" placeholder="입력하세요..."></textarea>
+            <div id="memo-buttons">
+                <button id="save-memo-btn"><img src="images/elan_20224.png" alt="저장" /></button>
+            </div>
+        </div>
+        <div id="memo-list"></div>
     `;
+
     populateYear();  
     showGrass('2025'); 
     addMemoFunctionality();
