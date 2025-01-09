@@ -244,3 +244,29 @@ html, body {
     user-drag: none;
     user-select: none;  
 }
+
+.book-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.book-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.book-links a {
+    text-decoration: none;
+    color: #0077cc;
+    margin-right: 10px;
+    transition: color 0.3s;
+}
+
+.book-links a:hover {
+    color: #0056a3;
+}
