@@ -8,6 +8,17 @@ function showMain() {
     window.location.reload();  
 }
 
+function displayEmail() {
+    const emailUser = "gwaaamegi";
+    const emailDomain = "kakao.com";
+    const emailElement = document.getElementById('email-placeholder');
+
+    const emailLink = `<a href="mailto:${emailUser}@${emailDomain}">${emailUser}@${emailDomain}</a>`;
+    emailElement.innerHTML = emailLink;
+}
+
+displayEmail();
+
 function showRandomText(folder) {
     fetch(`${folder}/files.json`)
         .then(response => response.json())
