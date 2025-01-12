@@ -42,24 +42,131 @@ function showRandomText(folder) {
 function showGrassPage() {
     const content = document.getElementById('content');
     content.innerHTML = `
-        <h1>잔디 페이지</h1> 
-        <div id="calendar">
-            <select id="year-dropdown"></select>
+    <div id="grass-calendar-container" style="display: flex; justify-content: space-between; flex-shrink: 0; width: 100%;">
+            <img src="images/grass.png" style="width: 60px; height: 60px; align-self: flex-end;">
+            <div id="calendar" style="margin-left: 10px; align-self: flex-end;">
+                <select id="year-dropdown"></select>
+</div></div></div>
+<div id="grass-container"></div>
+        <h2>투두 리스트</h2><div id="memo-page"><div id="memo-input-section">
+        <textarea id="memo-input" placeholder="입력하세요..."></textarea>
+        <button id="add-memo-btn">입력</button>
+    </div>
+    <div id="memo-lists">
+        <div class="memo-list" data-status="대기 중"><img src="images/elan_20189.png" style="width: 40px; height: 40px;"><p style="font-size: 14px;"><i>대기 중</p></i>
+            <div class="memo-items"></div>
         </div>
-        <div id="grass-container"></div>
-        <div id="memo-container">
-            <textarea id="memo-input" placeholder="입력하세요..."></textarea>
-            <div id="memo-buttons">
-                <button id="save-memo-btn"><img src="images/elan_20224.png" alt="저장" /></button>
-            </div>
+        <div class="memo-list" data-status="진행 중"><img src="images/elan_20224.png" style="width: 40px; height: 40px;"><p style="font-size: 14px;"><i>진행 중</p></i>
+            <div class="memo-items"></div>
         </div>
-        <div id="memo-list"></div>
+        <div class="memo-list" data-status="완료"><img src="images/elan_20226.png" style="width: 40px; height: 40px;"><p style="font-size: 14px;"><i>완료</p></i>
+            <div class="memo-items"></div>
+        </div>
+    </div>
+</div>
     `;
 
     populateYear();  
     showGrass('2025'); 
-    addMemoFunctionality();
+    initializeMemoPage();
 }
+
+function initializeMemoPage() {
+    const memoInput = document.getElementById('memo-input');
+    const addMemoBtn = document.getElementById('add-memo-btn');
+
+    const lists = {
+        '대기 중': document.querySelector('[data-status="대기 중"] .memo-items'),
+        '진행 중': document.querySelector('[data-status="진행 중"] .memo-items'),
+        '완료': document.querySelector('[data-status="완료"] .memo-items'),
+    };
+
+    const state = {
+        '대기 중': [],
+        '진행 중': [],
+        '완료': [],
+    };
+
+    Object.keys(state).forEach(status => {
+        const saved = JSON.parse(localStorage.getItem(status) || '[]');
+        state[status] = saved;
+        renderList(status);
+    });
+
+    addMemoBtn.addEventListener('click', () => {
+        const text = memoInput.value.trim();
+        if (!text) return;
+
+        state['대기 중'].push(text);
+        memoInput.value = '';
+        saveState();
+        renderList('대기 중');
+    });
+
+    function renderList(status) {
+        lists[status].innerHTML = '';
+        state[status].forEach((memo, index) => {
+            const memoItem = document.createElement('div');
+            memoItem.className = 'memo-item';
+            memoItem.textContent = memo;
+    
+            const controls = document.createElement('div');
+            controls.className = 'controls';
+    
+            if (status !== '대기 중') {
+                const backBtn = document.createElement('button');
+                backBtn.textContent = '◀';
+    
+                if (status === '완료') {
+                    // 완료에서 ◀ 버튼을 누르면 진행 중으로 이동
+                    backBtn.addEventListener('click', () => moveMemo(status, index, '진행 중'));
+                } else {
+                    // 대기 중과 진행 중에서는 각각 대기 중/진행 중으로 돌아감
+                    backBtn.addEventListener('click', () => moveMemo(status, index, '대기 중'));
+                }
+    
+                controls.appendChild(backBtn);
+            }
+    
+            if (status !== '완료') {
+                const forwardBtn = document.createElement('button');
+                forwardBtn.textContent = '▶';
+                forwardBtn.addEventListener('click', () => moveMemo(status, index, status === '대기 중' ? '진행 중' : '완료'));
+                controls.appendChild(forwardBtn);
+            }
+    
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '삭제';
+            deleteBtn.addEventListener('click', () => deleteMemo(status, index));
+            controls.appendChild(deleteBtn);
+    
+            memoItem.appendChild(controls);
+            lists[status].appendChild(memoItem);
+        });
+    }
+    
+
+    function moveMemo(from, index, to) {
+        const [movedMemo] = state[from].splice(index, 1);
+        state[to].push(movedMemo);
+        saveState();
+        renderList(from);
+        renderList(to);
+    }
+
+    function deleteMemo(status, index) {
+        state[status].splice(index, 1);
+        saveState();
+        renderList(status);
+    }
+
+    function saveState() {
+        Object.keys(state).forEach(status => {
+            localStorage.setItem(status, JSON.stringify(state[status]));
+        });
+    }
+}
+
 function populateYear() {
     const yearDropdown = document.getElementById('year-dropdown');
 
@@ -135,79 +242,6 @@ function showGrass(year) {
                 console.error(`${year}년 ${month}월의 데이터를 불러오는 데 문제가 발생했습니다:`, error);
             });
     }
-}
-function addMemoFunctionality() {
-    document.getElementById('save-memo-btn').addEventListener('click', saveMemo);
-    document.getElementById('memo-input').addEventListener('input', updateMemoList);
-
-    function saveMemo() {
-        const memoInput = document.getElementById('memo-input');
-        const memoText = memoInput.value.trim();
-
-        if (memoText === '') return; 
-
-        let memos = getMemosFromLocalStorage(); 
-        memos.push({ text: memoText, checked: false }); 
-
-        saveMemosToLocalStorage(memos);
-        memoInput.value = ''; 
-        updateMemoList(); 
-    }
-
-    function getMemosFromLocalStorage() {
-        const memos = localStorage.getItem('memos');
-        return memos ? JSON.parse(memos) : [];
-    }
-
-    function saveMemosToLocalStorage(memos) {
-        localStorage.setItem('memos', JSON.stringify(memos));
-    }
-
-    function updateMemoList() {
-        const memoList = document.getElementById('memo-list');
-        memoList.innerHTML = ''; 
-
-        const memos = getMemosFromLocalStorage(); 
-        memos.forEach((memo, index) => {
-            const memoItem = document.createElement('div');
-            memoItem.classList.add('memo-item');
-
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.classList.add('checkbox');
-            checkbox.checked = memo.checked;
-            checkbox.addEventListener('change', () => toggleMemoCheck(index));
-
-            const memoText = document.createElement('span');
-            memoText.textContent = memo.text;
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = '삭제';
-            deleteBtn.addEventListener('click', () => deleteMemo(index));
-
-            memoItem.appendChild(checkbox);
-            memoItem.appendChild(memoText);
-            memoItem.appendChild(deleteBtn);
-
-            memoList.appendChild(memoItem);
-        });
-    }
-
-    function toggleMemoCheck(index) {
-        let memos = getMemosFromLocalStorage();
-        memos[index].checked = !memos[index].checked;
-        saveMemosToLocalStorage(memos);
-        updateMemoList(); 
-    }
-
-    function deleteMemo(index) {
-        let memos = getMemosFromLocalStorage();
-        memos.splice(index, 1); 
-        saveMemosToLocalStorage(memos);
-        updateMemoList(); 
-    }
-
-    document.addEventListener('DOMContentLoaded', updateMemoList);
 }
 
 function loadBooksPage() {
