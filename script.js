@@ -47,8 +47,10 @@ function showGrassPage() {
             <div id="calendar" style="margin-left: 10px; align-self: flex-end;">
                 <select id="year-dropdown"></select>
 </div></div></div>
-<div id="grass-container"></div>
-        <h2>투두 리스트</h2><div id="memo-page"><div id="memo-input-section">
+    <div id="grass-container"></div>
+    <div id="memo-page" class="todo-container">
+    <div style="text-align: center;"><img src="images/elan_0489.png" alt="Centered Image"></div>
+    <div id="memo-page"><p style="font size: 16px"><i>📝 할 일 입력</p></i><div id="memo-input-section">
         <textarea id="memo-input" placeholder="입력하세요..."></textarea>
         <button id="add-memo-btn">입력</button>
     </div>
@@ -113,30 +115,33 @@ function initializeMemoPage() {
             const controls = document.createElement('div');
             controls.className = 'controls';
     
-            if (status !== '대기 중') {
-                const backBtn = document.createElement('button');
-                backBtn.textContent = '◀';
-    
+            const backBtn = document.createElement('button');
+            backBtn.textContent = '◀';
+            if (status === '대기 중') {
+                backBtn.disabled = true; 
+                backBtn.style.color = '#ccc';  
+            } else {
+
                 if (status === '완료') {
-                    // 완료에서 ◀ 버튼을 누르면 진행 중으로 이동
                     backBtn.addEventListener('click', () => moveMemo(status, index, '진행 중'));
                 } else {
-                    // 대기 중과 진행 중에서는 각각 대기 중/진행 중으로 돌아감
                     backBtn.addEventListener('click', () => moveMemo(status, index, '대기 중'));
                 }
-    
-                controls.appendChild(backBtn);
             }
+            controls.appendChild(backBtn);
     
-            if (status !== '완료') {
-                const forwardBtn = document.createElement('button');
-                forwardBtn.textContent = '▶';
+            const forwardBtn = document.createElement('button');
+            forwardBtn.textContent = '▶';
+            if (status === '완료') {
+                forwardBtn.disabled = true; 
+                forwardBtn.style.color = '#ccc';  
+            } else {
                 forwardBtn.addEventListener('click', () => moveMemo(status, index, status === '대기 중' ? '진행 중' : '완료'));
-                controls.appendChild(forwardBtn);
             }
+            controls.appendChild(forwardBtn);
     
             const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = '삭제';
+            deleteBtn.textContent = '✖️';
             deleteBtn.addEventListener('click', () => deleteMemo(status, index));
             controls.appendChild(deleteBtn);
     
@@ -144,6 +149,7 @@ function initializeMemoPage() {
             lists[status].appendChild(memoItem);
         });
     }
+    
     
 
     function moveMemo(from, index, to) {
@@ -243,6 +249,7 @@ function showGrass(year) {
             });
     }
 }
+
 
 function loadBooksPage() {
     fetch('books.html') 
