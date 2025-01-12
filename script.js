@@ -46,11 +46,12 @@ function showGrassPage() {
             <img src="images/grass.png" style="width: 60px; height: 60px; align-self: flex-end;">
             <div id="calendar" style="margin-left: 10px; align-self: flex-end;">
                 <select id="year-dropdown"></select>
-</div></div></div>
-    <div id="grass-container"></div>
+</div></div></div><div id="grass-container"></div>
     <div id="memo-page" class="todo-container">
-    <div style="text-align: center;"><img src="images/elan_0489.png" alt="Centered Image"></div>
-    <div id="memo-page"><p style="font size: 16px"><i>📝 할 일 입력</p></i><div id="memo-input-section">
+    <div style="text-align: center;"><img src="images/todo2.png" style="width: 5%">
+</div>
+<div id="memo-page">
+<p style="font size: 16px"><i>📝 할 일 입력</p></i><div id="memo-input-section">
         <textarea id="memo-input" placeholder="입력하세요..."></textarea>
         <button id="add-memo-btn">입력</button>
     </div>

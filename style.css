@@ -103,7 +103,7 @@ html, body {
     justify-items: center;
     box-sizing: border-box;
     z-index: 1;
-    padding-top: 10px;
+    padding-top: 25px;
     padding-bottom: 20px;
 }
 
@@ -144,8 +144,9 @@ html, body {
 }
 
 .todo-container {
-    border: 1px solid #ccc;
+    border: 1px solid #7b7373;
     border-radius: 4px;
+    background-color: rgb(255, 255, 255);
 }
 
 #memo-page {
@@ -164,7 +165,6 @@ html, body {
     flex: 1;
     height: 40px;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
@@ -187,7 +187,7 @@ html, body {
 .memo-list {
     width: 170px;
     flex: none;
-    border: 1px solid #ccc;
+    border: 1px dashed #838383;
     border-radius: 5px;
     padding: 10px;
     background-color: #ffffff;
