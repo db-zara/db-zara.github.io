@@ -147,6 +147,15 @@ html, body {
     border: 1px solid #7b7373;
     border-radius: 4px;
     background-color: rgb(255, 255, 255);
+    display: flex; /* 또는 grid */
+    gap: 10px; /* 요소 간 간격 */
+    flex-wrap: wrap; /* 요소들이 한 줄에 다 못 들어가면 다음 줄로 넘어가게 설정 */
+    justify-content: space-around; /* 여백 분배 */
+    align-items: flex-start; /* 아이템 높이를 기준으로 정렬 */
+    padding: 10px; /* 내부 여백 */
+    width: 100%; /* 컨테이너 너비를 기준으로 설정 */
+    box-sizing: border-box;
+}
 }
 
 #memo-page {
@@ -185,15 +194,18 @@ html, body {
 }
 
 .memo-list {
-    width: 170px;
-    flex: none;
     border: 1px dashed #838383;
     border-radius: 5px;
+    background-color: #ffffff;
+    flex: 1 1 calc(33.33% - 10px); /* 3등분으로 유연하게 크기를 설정 */
+    max-width: 30%; /* 최대 너비 설정 */
+    min-width: 150px; /* 최소 너비 설정 */
     padding: 10px;
+    border: 1px dashed #838383;
+    border-radius: 5px;
     background-color: #ffffff;
     box-sizing: border-box;
-    text-align: center;
-    margin: 0;
+    max-width: 33%;
 }
 
 .memo-list img {
@@ -202,17 +214,15 @@ html, body {
 }
 
 .memo-item {
-    width: 126px;
+    width: 100%; /* 부모 크기에 맞게 설정 */
     border: 1px solid #ccc;
     background-color: #ffffff;
     padding: 10px;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
     border-radius: 4px;
-    display: flex;
-    flex-direction: column;
+    box-sizing: border-box;
     font-size: 13px;
     text-align: left;
-    overflow: hidden;
 }
 
 .controls {
