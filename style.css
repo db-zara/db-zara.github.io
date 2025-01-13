@@ -144,23 +144,21 @@ html, body {
 }
 
 .todo-container {
-    border: 1px solid #7b7373;
-    border-radius: 4px;
-    background-color: rgb(255, 255, 255);
-    display: flex; /* 또는 grid */
+    display: block; /* 또는 grid */
     gap: 10px; /* 요소 간 간격 */
-    flex-wrap: wrap; /* 요소들이 한 줄에 다 못 들어가면 다음 줄로 넘어가게 설정 */
     justify-content: space-around; /* 여백 분배 */
     align-items: flex-start; /* 아이템 높이를 기준으로 정렬 */
     padding: 10px; /* 내부 여백 */
     width: 100%; /* 컨테이너 너비를 기준으로 설정 */
     box-sizing: border-box;
 }
-}
 
 #memo-page {
     padding: 10px;
+}
 
+#memo-page img {
+    display: block; /* 이미지 단독 배치 */
 }
 
 #memo-input-section {

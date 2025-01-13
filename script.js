@@ -48,21 +48,18 @@ function showGrassPage() {
                 <select id="year-dropdown"></select>
 </div></div></div><div id="grass-container"></div>
     <div id="memo-page" class="todo-container">
-    <div style="text-align: center;"><img src="images/todo2.png" style="width: 5%">
-</div>
-<div id="memo-page">
-<p style="font size: 16px"><i>📝 할 일 입력</p></i><div id="memo-input-section">
+    <img src="images/grass3.png" style="width: 60px; height: 60px;"><p style="font-size: 14px; margin-top: 30px;"><i>📝 할 일 입력</i></p><div id="memo-input-section">
         <textarea id="memo-input" placeholder="입력하세요..."></textarea>
         <button id="add-memo-btn">입력</button>
     </div>
     <div id="memo-lists">
-        <div class="memo-list" data-status="대기 중"><img src="images/elan_20189.png" style="width: 40px; height: 40px;"><p style="font-size: 14px;"><i>대기 중</p></i>
+        <div class="memo-list" data-status="대기 중"><img src="images/elan_20189.png" style="width: 40px; height: 40px; margin-top: 10px;"><p style="font-size: 14px; text-align: center;"><i>대기 중</i></p>
             <div class="memo-items"></div>
         </div>
-        <div class="memo-list" data-status="진행 중"><img src="images/elan_20224.png" style="width: 40px; height: 40px;"><p style="font-size: 14px;"><i>진행 중</p></i>
+        <div class="memo-list" data-status="진행 중"><img src="images/elan_20224.png" style="width: 40px; height: 40px; margin-top: 10px;"><p style="font-size: 14px; text-align: center;"><i>진행 중</i></p>
             <div class="memo-items"></div>
         </div>
-        <div class="memo-list" data-status="완료"><img src="images/elan_20226.png" style="width: 40px; height: 40px;"><p style="font-size: 14px;"><i>완료</p></i>
+        <div class="memo-list" data-status="완료"><img src="images/elan_20226.png" style="width: 40px; height: 40px; margin-top: 10px;"><p style="font-size: 14px; text-align: center;"><i>완료</i></p>
             <div class="memo-items"></div>
         </div>
     </div>
