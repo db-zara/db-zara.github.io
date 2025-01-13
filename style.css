@@ -1,5 +1,6 @@
 html, body {
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
     background-color: white;
@@ -48,7 +49,7 @@ button:active {
 }
 
 main {
-    padding: 20px;
+    padding: 50px 30px;
     word-wrap: break-word; 
     word-break: break-word; 
     white-space: pre-wrap;  
@@ -59,6 +60,9 @@ main {
     line-height: 1.6;
     margin-top: 2px;
     margin-bottom: 2px;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
 }
 
 pre {
@@ -68,11 +72,6 @@ pre {
     word-wrap: break-word;  
     line-height: 1.6;     
     margin: 0;    
-}
-
-html, body {
-    width: 100vw;
-    height: 100vh;
 }
 
 #calendar {
@@ -99,15 +98,17 @@ html, body {
     grid-template-columns: repeat(53, 1fr);
     grid-template-rows: repeat(7, 1fr);
     gap: 2px;
-    width: 560px; 
-    max-width: 560px; 
+    width: 100%; 
+    max-width: 100%; 
+    box-sizing: border-box;
+    border: 1px dashed #c0c0c0;
+    border-radius: 5px;
     overflow-x: auto;
     overflow-y: visible; 
     justify-items: center;
     box-sizing: border-box;
     z-index: 1;
-    padding-top: 25px;
-    padding-bottom: 20px;
+    padding: 20px 20px 25px 20px;
 }
 
 .tooltip {
@@ -195,14 +196,13 @@ html, body {
 }
 
 .memo-list {
-    border: 1px dashed #838383;
     border-radius: 5px;
     background-color: #ffffff;
-    flex: 1 1 calc(33.33% - 10px); /* 3등분으로 유연하게 크기를 설정 */
-    max-width: 30%; /* 최대 너비 설정 */
-    min-width: 150px; /* 최소 너비 설정 */
+    flex: 1 1 calc(33.33% - 10px);
+    max-width: 30%;
+    min-width: 150px; 
     padding: 10px;
-    border: 1px dashed #838383;
+    border: 1px solid #838383;
     border-radius: 5px;
     background-color: #ffffff;
     box-sizing: border-box;

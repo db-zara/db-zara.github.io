@@ -42,11 +42,9 @@ function showRandomText(folder) {
 function showGrassPage() {
     const content = document.getElementById('content');
     content.innerHTML = `
-    <div id="grass-calendar-container" style="display: flex; justify-content: space-between; flex-shrink: 0; width: 100%;">
-            <img src="images/grass.png" style="width: 60px; height: 60px; align-self: flex-end; margin-left: 5px;">
-            <div id="calendar" style="margin-left: 10px; align-self: flex-end;">
-                <select id="year-dropdown"></select>
-</div></div></div><div id="grass-container"></div>
+    <div id="grass-calendar-container" style="display: flex; justify-content: space-between; flex-shrink: 0; width: 100%;"><img src="images/grass.png" style="width: 60px; height: 60px; align-self: flex-end; margin-left: 5px;"><div id="calendar" style="margin-left: 10px; align-self: flex-end;"><select id="year-dropdown"></select>
+</div></div>
+</div><div id="grass-container"></div>
     <div id="memo-page" class="todo-container">
     <img src="images/grass3.png" style="width: 60px; height: 60px;"><p style="font-size: 14px; margin-top: 30px;"><i>📝 할 일 입력</i></p><div id="memo-input-section">
         <textarea id="memo-input" placeholder="입력하세요..."></textarea>
@@ -59,10 +57,7 @@ function showGrassPage() {
         <div class="memo-list" data-status="진행 중"><img src="images/elan_20224.png" style="width: 40px; height: 40px; margin-top: 10px;"><p style="font-size: 14px; text-align: center;"><i>진행 중</i></p>
             <div class="memo-items"></div>
         </div>
-        <div class="memo-list" data-status="완료"><img src="images/elan_20226.png" style="width: 40px; height: 40px; margin-top: 10px;"><p style="font-size: 14px; text-align: center;"><i>완료</i></p>
-            <div class="memo-items"></div>
-        </div>
-    </div>
+        <div class="memo-list" data-status="완료"><img src="images/elan_20226.png" style="width: 40px; height: 40px; margin-top: 10px;"><p style="font-size: 14px; text-align: center;"><i>완료</i></p><div class="memo-items"></div></div></div>
 </div>
     `;
 
