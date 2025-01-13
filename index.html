@@ -9,6 +9,12 @@
     <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/symbols/sym-1/sym57.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2005/06/03/sym57.html" target="_blank" title="Rock On"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Rock On" style="position:absolute; top: 0px; right: 0px;" /></a>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isMobile) {
+            return; 
+        }
+            
             const sparks = 20;
             const speed = 33;
             const bangs = 4;
@@ -93,6 +99,12 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
+            var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isMobile) {
+            return; 
+            }
+
         var images = new Array("images/Brown_Chicken.png", "images/Blue_Chicken.png", "images/White_Chicken.png");
         var speed = 50; 
         var blobs = 30; 
