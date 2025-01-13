@@ -43,7 +43,7 @@ function showGrassPage() {
     const content = document.getElementById('content');
     content.innerHTML = `
     <div id="grass-calendar-container" style="display: flex; justify-content: space-between; flex-shrink: 0; width: 100%;">
-            <img src="images/grass.png" style="width: 60px; height: 60px; align-self: flex-end; margin-left: 10px;"><p style="font-size: 14px; margin-top: 30px;"><i>📅 달력</i></p>
+            <img src="images/grass.png" style="width: 60px; height: 60px; align-self: flex-end; margin-left: 5px;">
             <div id="calendar" style="margin-left: 10px; align-self: flex-end;">
                 <select id="year-dropdown"></select>
 </div></div></div><div id="grass-container"></div>
