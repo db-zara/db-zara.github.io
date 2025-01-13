@@ -6,6 +6,279 @@
     <title>공사중</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
+    <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/symbols/sym-1/sym57.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2005/06/03/sym57.html" target="_blank" title="Rock On"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Rock On" style="position:absolute; top: 0px; right: 0px;" /></a>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sparks = 20;
+            const speed = 33;
+            const bangs = 4;
+            const images = [
+                'images/White_Chicken.png',
+                'images/Brown_Chicken.png',
+                'images/Blue_Chicken.png'
+            ];
+
+            const stars = [];
+            const decay = [];
+            const Xpos = [];
+            const Ypos = [];
+            const dX = [];
+            const dY = [];
+            const intensity = [];
+            const timers = [];
+            let swide = window.innerWidth;
+            let shigh = window.innerHeight;
+
+            function createImage() {
+                const img = document.createElement('img');
+                img.src = images[Math.floor(Math.random() * images.length)];
+                img.style.position = 'absolute';
+                img.style.visibility = 'hidden';
+                img.style.width = '15px';
+                img.style.height = '15px';
+                img.style.zIndex = '101';
+                document.body.appendChild(img);
+                return img;
+            }
+
+            function bang(N) {
+                for (let i = sparks * N; i < sparks * (N + 1); i++) {
+                    if (decay[i]) {
+                        Xpos[i] += dX[i];
+                        Ypos[i] += (dY[i] += 1.25 / intensity[N]);
+                        if (Xpos[i] < 0 || Xpos[i] > swide || Ypos[i] < 0 || Ypos[i] > shigh) {
+                            decay[i] = 1;
+                        } else {
+                            stars[i].style.left = `${Xpos[i]}px`;
+                            stars[i].style.top = `${Ypos[i]}px`;
+                        }
+                        decay[i]--;
+                        if (decay[i] === 0) stars[i].style.visibility = 'hidden';
+                    }
+                }
+                if (decay.some(v => v > 0)) {
+                    timers[N] = setTimeout(() => bang(N), speed);
+                }
+            }
+
+            function eksplode(e) {
+                const x = e.pageX;
+                const y = e.pageY;
+                const N = (Math.random() * bangs) | 0;
+                intensity[N] = 5 + Math.random() * 4;
+                for (let i = sparks * N; i < sparks * (N + 1); i++) {
+                    Xpos[i] = x;
+                    Ypos[i] = y;
+                    dY[i] = (Math.random() - 0.5) * intensity[N];
+                    dX[i] = (Math.random() - 0.5) * intensity[N];
+                    decay[i] = 16 + Math.floor(Math.random() * 16);
+                    stars[i].style.visibility = 'visible';
+                }
+                clearTimeout(timers[N]);
+                bang(N);
+            }
+
+            function initClickEffect() {
+                for (let i = 0; i < bangs * sparks; i++) {
+                    stars[i] = createImage();
+                }
+                window.addEventListener('click', eksplode);
+                window.addEventListener('resize', () => {
+                    swide = window.innerWidth;
+                    shigh = window.innerHeight;
+                });
+            }
+
+            initClickEffect();
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+        var images = new Array("images/Brown_Chicken.png", "images/Blue_Chicken.png", "images/White_Chicken.png");
+        var speed = 50; 
+        var blobs = 30; 
+        var size = 80; 
+
+        var div;
+        var xpos = new Array();
+        var ypos = new Array();
+        var zpos = new Array();
+        var dx = new Array();
+        var dy = new Array();
+        var dz = new Array();
+        var blob = new Array(); 
+        var swide = 800;
+        var sleft = 0;
+        var shigh = 600;
+        var sdown = 0;
+        var x = 400;
+        var y = 300; 
+
+        function addLoadEvent(funky) {
+          var oldonload = window.onload;
+          if (typeof(oldonload) != 'function') window.onload = funky;
+          else window.onload = function() {
+            if (oldonload) oldonload();
+            funky();
+          }
+        }
+
+        addLoadEvent(fill_the_jar);
+
+        function fill_the_jar() {
+            var i, dvs;
+            div = document.createElement('div');
+            dvs = div.style;
+            dvs.position = 'fixed';
+            dvs.left = '0px';
+            dvs.top = '0px';
+            dvs.width = '1px';
+            dvs.height = '1px';
+            dvs.zIndex = -1;
+            document.body.appendChild(div);
+            set_scroll();
+            set_width();
+            for (i = 0; i < blobs; i++) {
+                add_blob(i);
+                jamjar(i);
+            }
+        }
+
+        function add_blob(ref) {
+            var img, sy;
+            img = document.createElement('img');
+            sy = img.style;
+            sy.width = size + "px";
+            sy.height = size + "px";
+            sy.position = 'absolute';
+            img.src = images[ref % images.length];
+            
+            do {
+                ypos[ref] = Math.floor(shigh * Math.random());
+                xpos[ref] = Math.floor(swide * Math.random());
+            }
+            while (checkity(ref));
+            zpos[ref] = Math.random() * size / 4;
+            dy[ref] = (0.5 + Math.random()) * (Math.random() > .5 ? 2 : -2);
+            dx[ref] = (0.5 + Math.random()) * (Math.random() > .5 ? 2 : -2);
+            dz[ref] = (0.5 + Math.random()) * (Math.random() > .5 ? .2 : -.2);
+            blob[ref] = img;
+            div.appendChild(blob[ref]);
+            set_blob(ref);
+        }
+
+        function checkity(j) {
+            var i, r = false;
+            if (j) for (var i = 0; i < j; i++) {
+                if (Math.abs(xpos[i] - xpos[j]) < size && Math.abs(ypos[i] - ypos[j]) < size) r = true;
+            }
+            return (r);
+        }
+
+        function rejig(ref, xy) {
+          if (xy == 'y') {
+            dx[ref] = (0.5 + Math.random()) * sign(dx[ref]);
+            dy[ref] = (0.5 + Math.random()) * -sign(dy[ref]);
+          } else {
+            dx[ref] = (0.5 + Math.random()) * -sign(dx[ref]);
+            dy[ref] = (0.5 + Math.random()) * sign(dy[ref]);
+          }
+        }
+
+        function sign(a) {
+          if (a < 0) return (-2);
+          else if (a > 0) return (2);
+          else return (0);
+        }
+
+        function set_blob(ref) {
+            var sy;
+            sy = blob[ref].style;
+            sy.top = ypos[ref] - size / 4 + 'px';
+            sy.left = xpos[ref] - size / 4 + 'px';
+            sy.filter = 'blur(' + zpos[ref] + 'px)';
+        }
+
+        function jamjar(ref) {
+            var i;
+            if (ypos[ref] + dy[ref] < -size / 2 || ypos[ref] + dy[ref] > shigh + size / 2) rejig(ref, 'y');
+            else if (xpos[ref] + dx[ref] < -size / 2 || xpos[ref] + dx[ref] > swide + size / 2) rejig(ref, 'x');
+            else if (Math.abs(ypos[ref] + dy[ref] - y) < size / 2 && Math.abs(xpos[ref] + dx[ref] - x) < size / 2 && zpos[ref] < size / 20) {
+                if (Math.abs(ypos[ref] + dy[ref] - y) > Math.abs(xpos[ref] + dx[ref] - x)) dy[ref] = -dy[ref];
+                else dx[ref] = -dx[ref];
+            } else for (i = 0; i < blobs; i++) {
+                if (i == ref) continue;
+                if (Math.abs(ypos[ref] + dy[ref] - ypos[i]) < size / 2 && Math.abs(xpos[ref] + dx[ref] - xpos[i]) < size / 2 && Math.abs(zpos[ref] - zpos[i]) < size / 20) {
+                    if (Math.abs(ypos[ref] + dy[ref] - ypos[i]) > Math.abs(xpos[ref] + dx[ref] - xpos[i])) dy[ref] = -dy[ref];
+                    else dx[ref] = -dx[ref];
+                }
+            }
+            ypos[ref] += dy[ref];
+            xpos[ref] += dx[ref];
+            if (zpos[ref] + dz[ref] < 0) dz[ref] = Math.abs(dz[ref]);
+            else if (zpos[ref] + dz[ref] > size / 4) dz[ref] = -Math.abs(dz[ref]);
+            zpos[ref] += dz[ref];
+            set_blob(ref);
+            setTimeout(function() { jamjar(ref); }, speed);
+        }
+
+        document.onmousemove = mouse;
+        function mouse(e) {
+          if (e) {
+            y = e.pageY;
+            x = e.pageX;
+          }
+          else {
+            set_scroll();
+            y = event.y + sdown;
+            x = event.x + sleft;
+          }
+        }
+
+        document.onscroll = set_scroll;
+        function set_scroll() {
+          if (typeof(self.pageYOffset) == "number") {
+            sdown = self.pageYOffset;
+            sleft = self.pageXOffset;
+          }
+          else if (document.body.scrollTop || document.body.scrollLeft) {
+            sdown = document.body.scrollTop;
+            sleft = document.body.scrollLeft;
+          }
+          else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+            sleft = document.documentElement.scrollLeft;
+            sdown = document.documentElement.scrollTop;
+          }
+          else {
+            sdown = 0;
+            sleft = 0;
+          }
+        }
+
+        window.onresize = set_width;
+        function set_width() {
+          var sw_min = 999999;
+          var sh_min = 999999;
+          if (document.documentElement && document.documentElement.clientWidth) {
+            if (document.documentElement.clientWidth > 0) sw_min = document.documentElement.clientWidth;
+            if (document.documentElement.clientHeight > 0) sh_min = document.documentElement.clientHeight;
+          }
+          if (typeof(self.innerWidth) != "undefined" && self.innerWidth) {
+            if (self.innerWidth > 0 && self.innerWidth < sw_min) sw_min = self.innerWidth;
+            if (self.innerHeight > 0 && self.innerHeight < sh_min) sh_min = self.innerHeight;
+          }
+          if (document.body.clientWidth) {
+            if (document.body.clientWidth > 0 && document.body.clientWidth < sw_min) sw_min = document.body.clientWidth;
+            if (document.body.clientHeight > 0 && document.body.clientHeight < sh_min) sh_min = document.body.clientHeight;
+          }
+          if (sw_min == 999999 || sh_min == 999999) {
+            sw_min = 800;
+            sh_min = 600;
+          }
+          swide = sw_min;
+          shigh = sh_min;
+        }
+    });
+    </script>
 </head>
 <body>
     <header>

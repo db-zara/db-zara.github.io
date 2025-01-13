@@ -14,6 +14,7 @@ html, body {
 body {
     text-align: left;
     overflow: auto;
+    z-index: 1;
 }
 
 header {
@@ -22,6 +23,7 @@ header {
     gap: 15px;
     padding-top: 20px;
     margin-bottom: 20px;
+    z-index: 1;
 }
 
 button {
@@ -32,6 +34,7 @@ button {
     margin: 0;
     background: none;
     cursor: pointer;
+    z-index: 1;
 }
 
 button img {
