@@ -9,15 +9,16 @@ function showMain() {
 }
 
 function displayEmail() {
-    const emailUser = "gwaaamegi";
-    const emailDomain = "kakao.com";
+    const encodedEmail = "Z3dhYWFtZWdpQGtha2FvLmNvbQ=="; 
     const emailElement = document.getElementById('email-placeholder');
 
-    const emailLink = `<a href="mailto:${emailUser}@${emailDomain}">${emailUser}@${emailDomain}</a>`;
+    const decodedEmail = atob(encodedEmail);
+    const emailLink = `<a href="mailto:${decodedEmail}">${decodedEmail}</a>`;
     emailElement.innerHTML = emailLink;
 }
 
 displayEmail();
+
 
 function showRandomText(folder) {
     fetch(`${folder}/files.json`)
