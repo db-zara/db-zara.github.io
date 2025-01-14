@@ -247,9 +247,3 @@ button:disabled {
     font-size: 12px;
     font-weight: bold;
 }
-
-* {
-    -webkit-user-drag: none; 
-    user-drag: none;
-    user-select: none;  
-}
