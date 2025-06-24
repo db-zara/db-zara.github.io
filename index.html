@@ -17,15 +17,15 @@
     <div class="topbar-left">GloryHole</div>
     <div class="topbar-center">GLORYHOLE</div>
     <div class="topbar-right">
-      <a href="#">Login</a>
+      <a href="#">Log in  </a>
       <a href="#">Join</a>
     </div>
   </header>
 
   <div class="container">
 
-    <aside class="sidebar active">
-      <h1>GloryHole</h1>
+    <aside class="sidebar">
+      <button class="menu-button" id="menu-toggle">☰</button>
       <img src="images/toilet.png" alt="로고 이미지" style="width: 150px; margin-top: 30px;">
       <ul>
         <li><a href="#">Home</a></li>
@@ -70,6 +70,16 @@
     </div>
   </div>
 
-  <script src="assets/script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleButton = document.getElementById("menu-toggle");
+      const sidebar = document.querySelector(".sidebar");
+  
+      toggleButton.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+      });
+    });
+  </script>
+  
 </body>
 </html>
