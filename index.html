@@ -12,7 +12,6 @@
 </head>
 <body>
 
-
   <header class="topbar">
     <button class="menu-button" id="menu-toggle">☰</button>
     <div class="topbar-center">GLORYHOLE</div>
@@ -25,8 +24,10 @@
   <div class="container">
 
     <aside class="sidebar">
+      <button class="close-button" id="sidebar-close">✕</button>
       <img src="images/toilet.png" alt="로고 이미지" style="width: 150px; margin-top: 30px;">
       <ul>
+        <h3>glory-hole</h3>
         <li><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Works</a></li>
@@ -71,13 +72,18 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const toggleButton = document.getElementById("menu-toggle");
-      const sidebar = document.querySelector(".sidebar");
-  
-      toggleButton.addEventListener("click", () => {
-        sidebar.classList.toggle("active");
-      });
-    });
+  const toggleButton = document.getElementById("menu-toggle");
+  const closeButton = document.getElementById("sidebar-close");
+  const sidebar = document.getElementById("sidebar");
+
+  toggleButton.addEventListener("click", () => {
+    sidebar.classList.add("active");
+  });
+
+  closeButton.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+  });
+});
   </script>
   
 </body>
