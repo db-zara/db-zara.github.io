@@ -9,6 +9,29 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .topbar-center {
+      flex: 1;
+      text-align: center;
+      color: white;
+    }
+
+    .topbar-right {
+      display: flex;
+      gap: 10px;
+    }
+
+    .topbar-right a {
+      color: white;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -16,14 +39,14 @@
     <button class="menu-button" id="menu-toggle">☰</button>
     <div class="topbar-center">GLORYHOLE</div>
     <div class="topbar-right">
-      <a href="#">Log in  </a>
+      <a href="#">Log in</a>
       <a href="#">Join</a>
     </div>
   </header>
 
   <div class="container">
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <button class="close-button" id="sidebar-close">✕</button>
       <img src="images/toilet.png" alt="로고 이미지" style="width: 150px; margin-top: 30px;">
       <ul>
@@ -72,19 +95,19 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-  const toggleButton = document.getElementById("menu-toggle");
-  const closeButton = document.getElementById("sidebar-close");
-  const sidebar = document.getElementById("sidebar");
+      const toggleButton = document.getElementById("menu-toggle");
+      const closeButton = document.getElementById("sidebar-close");
+      const sidebar = document.getElementById("sidebar");
 
-  toggleButton.addEventListener("click", () => {
-    sidebar.classList.add("active");
-  });
+      toggleButton.addEventListener("click", () => {
+        sidebar.classList.add("active");
+      });
 
-  closeButton.addEventListener("click", () => {
-    sidebar.classList.remove("active");
-  });
-});
+      closeButton.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+      });
+    });
   </script>
-  
+
 </body>
 </html>
