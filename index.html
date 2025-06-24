@@ -1,318 +1,69 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수진이네</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="images/favicon.png" type="image/png">
-    <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/symbols/sym-1/sym57.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2005/06/03/sym57.html" target="_blank" title="Rock On"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Rock On" style="position:absolute; top: 0px; right: 0px;" /></a>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-            if (isMobile) {
-            return; 
-        }
-            
-            const sparks = 20;
-            const speed = 33;
-            const bangs = 4;
-            const images = [
-                'images/ham1.png',
-                'images/ham2.png',
-                'images/ham3.png'
-            ];
-
-            const stars = [];
-            const decay = [];
-            const Xpos = [];
-            const Ypos = [];
-            const dX = [];
-            const dY = [];
-            const intensity = [];
-            const timers = [];
-            let swide = window.innerWidth;
-            let shigh = window.innerHeight;
-
-            function createImage() {
-                const img = document.createElement('img');
-                img.src = images[Math.floor(Math.random() * images.length)];
-                img.style.position = 'absolute';
-                img.style.visibility = 'hidden';
-                img.style.width = '15px';
-                img.style.height = '15px';
-                img.style.zIndex = '101';
-                document.body.appendChild(img);
-                return img;
-            }
-
-            function bang(N) {
-                for (let i = sparks * N; i < sparks * (N + 1); i++) {
-                    if (decay[i]) {
-                        Xpos[i] += dX[i];
-                        Ypos[i] += (dY[i] += 1.25 / intensity[N]);
-                        if (Xpos[i] < 0 || Xpos[i] > swide || Ypos[i] < 0 || Ypos[i] > shigh) {
-                            decay[i] = 1;
-                        } else {
-                            stars[i].style.left = `${Xpos[i]}px`;
-                            stars[i].style.top = `${Ypos[i]}px`;
-                        }
-                        decay[i]--;
-                        if (decay[i] === 0) stars[i].style.visibility = 'hidden';
-                    }
-                }
-                if (decay.some(v => v > 0)) {
-                    timers[N] = setTimeout(() => bang(N), speed);
-                }
-            }
-
-            function eksplode(e) {
-                const x = e.pageX;
-                const y = e.pageY;
-                const N = (Math.random() * bangs) | 0;
-                intensity[N] = 5 + Math.random() * 4;
-                for (let i = sparks * N; i < sparks * (N + 1); i++) {
-                    Xpos[i] = x;
-                    Ypos[i] = y;
-                    dY[i] = (Math.random() - 0.5) * intensity[N];
-                    dX[i] = (Math.random() - 0.5) * intensity[N];
-                    decay[i] = 16 + Math.floor(Math.random() * 16);
-                    stars[i].style.visibility = 'visible';
-                }
-                clearTimeout(timers[N]);
-                bang(N);
-            }
-
-            function initClickEffect() {
-                for (let i = 0; i < bangs * sparks; i++) {
-                    stars[i] = createImage();
-                }
-                window.addEventListener('click', eksplode);
-                window.addEventListener('resize', () => {
-                    swide = window.innerWidth;
-                    shigh = window.innerHeight;
-                });
-            }
-
-            initClickEffect();
-        });
-
-        document.addEventListener("DOMContentLoaded", function() {
-            var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-            if (isMobile) {
-            return; 
-            }
-
-        var images = new Array("images/ham1.png", "images/ham2.png", "images/ham3.png");
-        var speed = 50; 
-        var blobs = 30; 
-        var size = 80; 
-
-        var div;
-        var xpos = new Array();
-        var ypos = new Array();
-        var zpos = new Array();
-        var dx = new Array();
-        var dy = new Array();
-        var dz = new Array();
-        var blob = new Array(); 
-        var swide = 800;
-        var sleft = 0;
-        var shigh = 600;
-        var sdown = 0;
-        var x = 400;
-        var y = 300; 
-
-        function addLoadEvent(funky) {
-          var oldonload = window.onload;
-          if (typeof(oldonload) != 'function') window.onload = funky;
-          else window.onload = function() {
-            if (oldonload) oldonload();
-            funky();
-          }
-        }
-
-        addLoadEvent(fill_the_jar);
-
-        function fill_the_jar() {
-            var i, dvs;
-            div = document.createElement('div');
-            dvs = div.style;
-            dvs.position = 'fixed';
-            dvs.left = '0px';
-            dvs.top = '0px';
-            dvs.width = '1px';
-            dvs.height = '1px';
-            dvs.zIndex = -1;
-            document.body.appendChild(div);
-            set_scroll();
-            set_width();
-            for (i = 0; i < blobs; i++) {
-                add_blob(i);
-                jamjar(i);
-            }
-        }
-
-        function add_blob(ref) {
-            var img, sy;
-            img = document.createElement('img');
-            sy = img.style;
-            sy.width = size + "px";
-            sy.height = size + "px";
-            sy.position = 'absolute';
-            img.src = images[ref % images.length];
-            
-            do {
-                ypos[ref] = Math.floor(shigh * Math.random());
-                xpos[ref] = Math.floor(swide * Math.random());
-            }
-            while (checkity(ref));
-            zpos[ref] = Math.random() * size / 4;
-            dy[ref] = (0.5 + Math.random()) * (Math.random() > .5 ? 2 : -2);
-            dx[ref] = (0.5 + Math.random()) * (Math.random() > .5 ? 2 : -2);
-            dz[ref] = (0.5 + Math.random()) * (Math.random() > .5 ? .2 : -.2);
-            blob[ref] = img;
-            div.appendChild(blob[ref]);
-            set_blob(ref);
-        }
-
-        function checkity(j) {
-            var i, r = false;
-            if (j) for (var i = 0; i < j; i++) {
-                if (Math.abs(xpos[i] - xpos[j]) < size && Math.abs(ypos[i] - ypos[j]) < size) r = true;
-            }
-            return (r);
-        }
-
-        function rejig(ref, xy) {
-          if (xy == 'y') {
-            dx[ref] = (0.5 + Math.random()) * sign(dx[ref]);
-            dy[ref] = (0.5 + Math.random()) * -sign(dy[ref]);
-          } else {
-            dx[ref] = (0.5 + Math.random()) * -sign(dx[ref]);
-            dy[ref] = (0.5 + Math.random()) * sign(dy[ref]);
-          }
-        }
-
-        function sign(a) {
-          if (a < 0) return (-2);
-          else if (a > 0) return (2);
-          else return (0);
-        }
-
-        function set_blob(ref) {
-            var sy;
-            sy = blob[ref].style;
-            sy.top = ypos[ref] - size / 4 + 'px';
-            sy.left = xpos[ref] - size / 4 + 'px';
-            sy.filter = 'blur(' + zpos[ref] + 'px)';
-        }
-
-        function jamjar(ref) {
-            var i;
-            if (ypos[ref] + dy[ref] < -size / 2 || ypos[ref] + dy[ref] > shigh + size / 2) rejig(ref, 'y');
-            else if (xpos[ref] + dx[ref] < -size / 2 || xpos[ref] + dx[ref] > swide + size / 2) rejig(ref, 'x');
-            else if (Math.abs(ypos[ref] + dy[ref] - y) < size / 2 && Math.abs(xpos[ref] + dx[ref] - x) < size / 2 && zpos[ref] < size / 20) {
-                if (Math.abs(ypos[ref] + dy[ref] - y) > Math.abs(xpos[ref] + dx[ref] - x)) dy[ref] = -dy[ref];
-                else dx[ref] = -dx[ref];
-            } else for (i = 0; i < blobs; i++) {
-                if (i == ref) continue;
-                if (Math.abs(ypos[ref] + dy[ref] - ypos[i]) < size / 2 && Math.abs(xpos[ref] + dx[ref] - xpos[i]) < size / 2 && Math.abs(zpos[ref] - zpos[i]) < size / 20) {
-                    if (Math.abs(ypos[ref] + dy[ref] - ypos[i]) > Math.abs(xpos[ref] + dx[ref] - xpos[i])) dy[ref] = -dy[ref];
-                    else dx[ref] = -dx[ref];
-                }
-            }
-            ypos[ref] += dy[ref];
-            xpos[ref] += dx[ref];
-            if (zpos[ref] + dz[ref] < 0) dz[ref] = Math.abs(dz[ref]);
-            else if (zpos[ref] + dz[ref] > size / 4) dz[ref] = -Math.abs(dz[ref]);
-            zpos[ref] += dz[ref];
-            set_blob(ref);
-            setTimeout(function() { jamjar(ref); }, speed);
-        }
-
-        document.onmousemove = mouse;
-        function mouse(e) {
-          if (e) {
-            y = e.pageY;
-            x = e.pageX;
-          }
-          else {
-            set_scroll();
-            y = event.y + sdown;
-            x = event.x + sleft;
-          }
-        }
-
-        document.onscroll = set_scroll;
-        function set_scroll() {
-          if (typeof(self.pageYOffset) == "number") {
-            sdown = self.pageYOffset;
-            sleft = self.pageXOffset;
-          }
-          else if (document.body.scrollTop || document.body.scrollLeft) {
-            sdown = document.body.scrollTop;
-            sleft = document.body.scrollLeft;
-          }
-          else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
-            sleft = document.documentElement.scrollLeft;
-            sdown = document.documentElement.scrollTop;
-          }
-          else {
-            sdown = 0;
-            sleft = 0;
-          }
-        }
-
-        window.onresize = set_width;
-        function set_width() {
-          var sw_min = 999999;
-          var sh_min = 999999;
-          if (document.documentElement && document.documentElement.clientWidth) {
-            if (document.documentElement.clientWidth > 0) sw_min = document.documentElement.clientWidth;
-            if (document.documentElement.clientHeight > 0) sh_min = document.documentElement.clientHeight;
-          }
-          if (typeof(self.innerWidth) != "undefined" && self.innerWidth) {
-            if (self.innerWidth > 0 && self.innerWidth < sw_min) sw_min = self.innerWidth;
-            if (self.innerHeight > 0 && self.innerHeight < sh_min) sh_min = self.innerHeight;
-          }
-          if (document.body.clientWidth) {
-            if (document.body.clientWidth > 0 && document.body.clientWidth < sw_min) sw_min = document.body.clientWidth;
-            if (document.body.clientHeight > 0 && document.body.clientHeight < sh_min) sh_min = document.body.clientHeight;
-          }
-          if (sw_min == 999999 || sh_min == 999999) {
-            sw_min = 800;
-            sh_min = 600;
-          }
-          swide = sw_min;
-          shigh = sh_min;
-        }
-    });
-    </script>
+  <meta charset="UTF-8" />
+  <title>Home</title>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-    <header>
-        <button id="button1"><img src="images/main.jpg" alt="메인 화면"></button>
-        <button id="button2"><img src="images/folder2.jpg" alt="폴더 2"></button>
-        <button id="button3"><img src="images/folder3.jpg" alt="폴더 3"></button>
-        <button id="button4"><img src="images/grass.jpg" alt="잔디 페이지"></button>
-        <button id="button5"><img src="images/books.jpg" alt="저서 목록 페이지"></button>
-    </header>
-    <main id="content"><img src="images/img37.gif" alt="메인 화면">
-<p style="font-size: 14px;">안녕하세요. 고수진입니다.
-제 홈페이지에 오신 것을 환영합니다.
-            <br>상단 단추를 눌러 이동할 수 있습니다.
-            <br>두 번째 단추를 누르면 일기가,
-세 번째 단추를 누르면 필사한 내용이 랜덤으로 창에 나타납니다.
-            <br>네 번째 단추는 작업 기록 페이지입니다.
-제 개인적으로 사용하는 곳이며, 입력창에 어떤 말을 쓰셔도 저는 볼 수가 없습니다.
-            <br>다섯 번째 단추를 누르면 출간되거나 연재 중인 작품 목록을 보실 수 있습니다.
-            <br>찾아주셔서 고맙습니다.
-            <br>죤 하루 되시길요. ^^
-            <br>
-<p style="font-size: 14px;"><span id="email-placeholder"></span></p></p></main>
-    <script src="script.js"></script>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar-left">GloryHole</div>
+    <div class="topbar-center">홈</div>
+    <div class="topbar-right">
+      <a href="#">로그인</a>
+      <a href="#">회원가입</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar active">
+      <h1>GloryHole</h1>
+      <img src="images/logo.png" alt="로고 이미지" />
+      <ul>
+        <li><a href="#">소개</a></li>
+        <li><a href="#">전체 글</a></li>
+        <li><a href="#">작가</a></li>
+      </ul>
+    </aside>
+
+    <div class="layout">
+      <main class="main-content home-landing" style="text-align: center;">
+        <h1 class="home-logo">GloryHole.co.kr</h1>
+        <p class="bulmi">“구멍 뚫린 벽, 너무나 불미스럽습니다. <br>하지만 조금은 두근거리네요···.”</p>
+
+        <img src="images/hole1.png" alt="get-into-the-hole" class="hole-image" />
+
+        <div class="home-lists">
+          <div class="featured-posts">
+            <h3>6월의 글</h3>
+
+            <div class="featured-post-row">
+              <div class="featured-title"><a href="#">〈페루의 새들〉</a></div>
+              <div class="featured-meta">소녀</div>
+            </div>
+
+            <div class="featured-post-row">
+              <div class="featured-title"><a href="#">〈음복〉</a></div>
+              <div class="featured-meta">시인A</div>
+            </div>
+
+            <div class="featured-post-row">
+              <div class="featured-title"><a href="#">〈바위게〉</a></div>
+              <div class="featured-meta">시인B</div>
+            </div>
+          </div>
+
+          <div class="view-all-wrapper">
+            <a href="works.html" class="button">전체 글 보러가기 →</a>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="assets/script.js"></script>
 </body>
 </html>
